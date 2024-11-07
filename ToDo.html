@@ -8,21 +8,30 @@
 </head>
 <body>
     <div class="container">
+        <!-- Боковое меню -->
         <aside class="sidebar">
             <div class="logo">МонтажКлик</div>
             <nav>
                 <ul>
                     <li class="active">DASHBOARD</li>
-                    <li>Проекты</li>
-                    <li><a href="ToDo.html" class="menu-item">Задачи</a></li>
+                    <li><a href="Main.html" class="menu-item">Проекты</a></li>
+                    <li>Задачи</li>
                     <li>Календарь</li>
                     <li>Спринты</li>
                     <li>Настройки</li>
                 </ul>
             </nav>
         </aside>
+        <!-- Основной контент -->
         <main class="main-content">
-
+            <!-- Раздел "Мои задачи" -->
+            <section class="tasks">
+                <h2>Мои задачи</h2>
+                <input type="text" id="taskInput" placeholder="Введите задачу">
+                <button id="addButton">Добавить задачу</button>
+                <button id="removeAllButton">Удалить все задачи</button>
+                <ul id="taskList"></ul>
+            </section>
         </main>
     </div>
     <script src="Script/Animation.js"></script>
