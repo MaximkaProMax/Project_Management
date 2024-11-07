@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Screen</title>
+    <link rel="stylesheet" href="Style/Style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Боковое меню -->
+        <aside class="sidebar">
+            <div class="logo">МонтажКлик</div>
+            <nav>
+                <ul>
+                    <li class="active">DASHBOARD</li>
+                    <li>Проекты</li>
+                    <li>Задачи</li>
+                    <li>Календарь</li>
+                    <li>Спринты</li>
+                    <li>Настройки</li>
+                </ul>
+            </nav>
+        </aside>
+        <!-- Основной контент -->
+        <main class="main-content">
+            <!-- Раздел "Мои задачи" -->
+            <section class="tasks">
+                <h2>Мои задачи</h2>
+                <input type="text" id="taskInput" placeholder="Введите задачу">
+                <button id="addButton">Добавить задачу</button>
+                <button id="removeAllButton">Удалить все задачи</button>
+                <ul id="taskList"></ul>
+            </section>
+        </main>
+    </div>
+    <script src="Script/Script.js"></script>
+    <script src="Script/ToDo.js"></script>
+</body>
+</html>
