@@ -77,6 +77,97 @@ body {
     flex-direction: column;
 }
 
+/* Стили для календаря */
+.calendar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px; /* Максимальная ширина календаря */
+    margin: 0 auto; /* Центрирование контейнера */
+}
+
+.calendar-header, .calendar-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.calendar-header {
+    width: 100%;
+    justify-content: space-between;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.calendar-days {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.calendar-day {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+}
+
+.calendar-cell {
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: calc(100% / 7);
+    box-sizing: border-box;
+    text-align: center;
+    margin: 2px;
+    border-radius: 4px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #fff;
+    transition: background-color 0.3s;
+}
+
+.calendar-cell:hover {
+    background-color: #f0f0f0;
+}
+
+.event {
+    background-color: #ffc107;
+    padding: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.empty {
+    border: none;
+    background-color: transparent;
+}
+
+/* Стили кнопок переключения месяцев */
+.calendar-header button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.calendar-header button:hover {
+    background-color: #0056b3;
+}
+
 .tasks ul {
     list-style: none;
     padding: 0;
@@ -111,4 +202,9 @@ body {
 
 .tasks button:hover {
     background-color: #34495e; /* Цвет кнопок при наведении */
+}
+
+.today {
+    background-color: #ffeb3b; /* Цвет подсветки для сегодняшнего дня */
+    border: 2px solid #fbc02d; /* Дополнительное выделение */
 }
