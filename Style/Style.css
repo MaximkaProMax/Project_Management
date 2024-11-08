@@ -52,15 +52,21 @@ body {
     display: block;
     padding: 10px;
     border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Плавный переход при изменении цвета */
 }
 
-.sidebar nav ul li.active {
+.sidebar nav ul li a.menu-item {
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.sidebar nav ul li.active,
+.sidebar nav ul li a.menu-item:hover {
     font-weight: bold;
     background-color: #34495e;
-}
-
-.sidebar nav ul li a.menu-item:hover {
-    background-color: #34495e;
+    color: white;
 }
 
 .main-content {
