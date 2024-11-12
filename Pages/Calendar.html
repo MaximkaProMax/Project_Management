@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Screen</title>
     <link rel="stylesheet" href="/Style/Style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
@@ -13,18 +14,40 @@
             <nav>
                 <ul>
                     <li><a href="" class="menu-item">DASHBOARD</a></li>
-                    <li><a href="Main.html" class="menu-item">Проекты</a></li>
-                    <li><a href="ToDo.html" class="menu-item">Задачи</a></li>
-                    <li><a href="Calendar.html" class="menu-item">Календарь</a></li>
+                    <li><a href="/Main.html" class="menu-item">Проекты</a></li>
+                    <li><a href="/Pages/ToDo.html" class="menu-item">Задачи</a></li>
+                    <li><a href="/Pages/Calendar.html" class="menu-item">Календарь</a></li>
                     <li><a href="" class="menu-item">Спринты</a></li>
                     <li><a href="" class="menu-item">Настройки</a></li>
                 </ul>
             </nav>
         </aside>
         <main class="main-content">
+            <h1>Календарь</h1>
+            <div class="controls">
+                <button onclick="prevMonth()">Предыдущий месяц</button>
+                <select id="month" onchange="changeMonth()"></select>
+                <select id="year" onchange="changeYear()"></select>
+                <button onclick="nextMonth()">Следующий месяц</button>
+            </div>
+            <table id="calendar">
+                <thead>
+                    <tr>
+                        <th>Пн</th>
+                        <th>Вт</th>
+                        <th>Ср</th>
+                        <th>Чт</th>
+                        <th>Пт</th>
+                        <th>Сб</th>
+                        <th>Вс</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </main>
     </div>
     <script src="/Script/ToDo.js"></script>
     <script src="/Script/Calendar.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

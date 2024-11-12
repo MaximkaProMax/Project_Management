@@ -1,108 +1,128 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const calendar = document.querySelector('.main-content');
-    const currentDate = new Date();
-    let currentMonth = currentDate.getMonth();
-    let currentYear = currentDate.getFullYear();
+const today = new Date();
+let currentMonth = today.getMonth();
+let currentYear = today.getFullYear();
+const notes = {
+    "13-10-2024": "Пример заметки" 
+};
 
-    const months = [
-        'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-        'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-    ];
+function createCalendar(month, year) {
+    const firstDay = new Date(year, month).getDay();
+    const adjustedFirstDay = (firstDay + 6) % 7; 
+    const daysInMonth = 32 - new Date(year, month, 32).getDate();
+    const calendarBody = document.querySelector("#calendar tbody");
 
-    function renderCalendar() {
-        // Очищаем старое содержимое календаря
-        calendar.innerHTML = '';
+    calendarBody.innerHTML = "";
+    let date = 1;
 
-        // Определяем первый день месяца и количество дней в месяце
-        const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
-        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    for (let i = 0; i < 6; i++) {
+        const row = document.createElement("tr");
 
-        // Создаем заголовок календаря
-        const calendarHeader = document.createElement('div');
-        calendarHeader.className = 'calendar-header';
-        calendarHeader.innerHTML = `
-            <button id="prevMonth">◀</button>
-            <span>${months[currentMonth]} ${currentYear}</span>
-            <button id="nextMonth">▶</button>
-        `;
-        calendar.appendChild(calendarHeader);
+        for (let j = 0; j < 7; j++) {
+            const cell = document.createElement("td");
 
-        // Создаем контейнер для дней недели
-        const calendarDays = document.createElement('div');
-        calendarDays.className = 'calendar-days';
-        calendar.appendChild(calendarDays);
+            if (i === 0 && j < adjustedFirstDay) {
+                cell.appendChild(document.createTextNode(""));
+            } else if (date > daysInMonth) {
+                break;
+            } else {
+                const cellText = document.createTextNode(date);
+                cell.appendChild(cellText);
 
-        // Создаем тело календаря
-        const calendarBody = document.createElement('div');
-        calendarBody.className = 'calendar-body';
-        calendar.appendChild(calendarBody);
+                if (date === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                    cell.classList.add("today");
+                }
 
-        // Добавляем дни недели
-        const daysOfWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
-        daysOfWeek.forEach(day => {
-            const dayElement = document.createElement('div');
-            dayElement.className = 'calendar-day';
-            dayElement.textContent = day;
-            calendarDays.appendChild(dayElement);
-        });
+                const note = notes[`${date}-${month}-${year}`];
+                if (note) {
+                    const noteText = document.createElement("div");
+                    noteText.classList.add("note");
+                    noteText.textContent = note;
+                    cell.appendChild(noteText);
+                }
 
-        // Заполняем пустые ячейки до первого дня месяца
-        const adjustedFirstDay = (firstDayOfMonth === 0) ? 6 : firstDayOfMonth - 1;
-        for (let i = 0; i < adjustedFirstDay; i++) {
-            const emptyCell = document.createElement('div');
-            emptyCell.className = 'calendar-cell empty';
-            calendarBody.appendChild(emptyCell);
-        }
+                (function(d, m, y) {
+                    cell.addEventListener("click", function () {
+                        const currentNote = notes[`${d}-${m}-${y}`] || "";
+                        let action = prompt(`Введите "1" для добавления/изменения заметки, "2" для удаления заметки:`, "1");
+                        if (action === "1") {
+                            const note = prompt("Введите текст:", currentNote);
+                            if (note !== null) {
+                                notes[`${d}-${m}-${y}`] = note;
+                            }
+                        } else if (action === "2") {
+                            delete notes[`${d}-${m}-${y}`];
+                        }
+                        createCalendar(m, y);
+                    });
+                })(date, month, year);
 
-        // Заполняем ячейки днями месяца
-        for (let day = 1; day <= daysInMonth; day++) {
-            const dayCell = document.createElement('div');
-            dayCell.className = 'calendar-cell';
-            dayCell.textContent = day;
-
-            // Проверяем, является ли этот день сегодняшним
-            const today = new Date();
-            if (day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
-                dayCell.classList.add('today');
+                date++;
             }
 
-            dayCell.addEventListener('click', () => addEvent(day));
-            calendarBody.appendChild(dayCell);
+            row.appendChild(cell);
         }
 
-        // Добавляем обработчики событий для кнопок переключения месяцев
-        document.getElementById('prevMonth').addEventListener('click', () => changeMonth(-1));
-        document.getElementById('nextMonth').addEventListener('click', () => changeMonth(1));
+        calendarBody.appendChild(row);
     }
+}
 
-    function changeMonth(direction) {
-        currentMonth += direction;
-        if (currentMonth < 0) {
-            currentMonth = 11;
-            currentYear--;
-        } else if (currentMonth > 11) {
-            currentMonth = 0;
-            currentYear++;
+function prevMonth() {
+    currentMonth--;
+    if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+    }
+    createCalendar(currentMonth, currentYear);
+}
+
+function nextMonth() {
+    currentMonth++;
+    if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+    }
+    createCalendar(currentMonth, currentYear);
+}
+
+function changeMonth() {
+    const monthSelect = document.getElementById("month");
+    currentMonth = parseInt(monthSelect.value);
+    createCalendar(currentMonth, currentYear);
+}
+
+function changeYear() {
+    const yearSelect = document.getElementById("year");
+    currentYear = parseInt(yearSelect.value);
+    createCalendar(currentMonth, currentYear);
+}
+
+function populateMonthSelect() {
+    const monthSelect = document.getElementById("month");
+    const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+    for (let i = 0; i < 12; i++) {
+        const option = document.createElement("option");
+        option.value = i;
+        option.text = monthNames[i];
+        if (i === currentMonth) {
+            option.selected = true;
         }
-        renderCalendar();
+        monthSelect.appendChild(option);
     }
+}
 
-    function addEvent(day) {
-        const eventText = prompt('Введите событие:');
-        if (eventText) {
-            const eventElement = document.createElement('div');
-            eventElement.className = 'event';
-            eventElement.textContent = eventText;
-            eventElement.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (confirm('Удалить это событие?')) {
-                    eventElement.remove();
-                }
-            });
-            const adjustedFirstDay = (new Date(currentYear, currentMonth, 1).getDay() === 0) ? 6 : new Date(currentYear, currentMonth, 1).getDay() - 1;
-            document.querySelectorAll('.calendar-cell')[day + adjustedFirstDay - 1].appendChild(eventElement);
+function populateYearSelect() {
+    const yearSelect = document.getElementById("year");
+    for (let i = currentYear - 10; i <= currentYear + 10; i++) {
+        const option = document.createElement("option");
+        option.value = i;
+        option.text = i;
+        if (i === currentYear) {
+            option.selected = true;
         }
+        yearSelect.appendChild(option);
     }
+}
 
-    renderCalendar();
-});
+populateMonthSelect();
+populateYearSelect();
+createCalendar(currentMonth, currentYear);
