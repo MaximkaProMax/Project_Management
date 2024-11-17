@@ -1,3 +1,4 @@
+/* Существующий CSS-код */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -328,4 +329,52 @@ h1 {
 
 .add-task button:hover {
     background-color: #34495e;
+}
+
+/* Дизайн таймера */
+/* Существующий CSS-код */
+
+.timer-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+input {
+    width: 100px; /* Увеличен размер для более комфортного ввода */
+    margin: 5px;
+    padding: 10px;
+    font-size: 18px;
+}
+
+button {
+    margin: 5px;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#timeDisplay {
+    margin-top: 20px;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+/* Новый код для прогресс-бара */
+.progress-bar {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 20px;
+    height: 20px;
+}
+
+.progress {
+    height: 100%;
+    background-color: #4caf50;
+    width: 0;
+    transition: width 1s linear;
 }

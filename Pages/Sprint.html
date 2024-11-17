@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Screen</title>
-    <link rel="stylesheet" href="Style/Style.css">
+    <link rel="stylesheet" href="/Style/Style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
@@ -22,9 +23,19 @@
             </nav>
         </aside>
         <main class="main-content">
-
+            <div class="timer-container">
+                <input type="number" id="minutes" placeholder="Минуты">
+                <input type="number" id="seconds" placeholder="Секунды">
+                <button id="startButton">Запуск</button>
+                <button id="stopButton">Стоп</button>
+                <div id="timeDisplay">00:00</div>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
         </main>
     </div>
-    <script src="/Script/ToDo.js"></script>
+    <script src="/Script/Sprint.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
