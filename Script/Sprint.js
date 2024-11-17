@@ -1,70 +1,99 @@
-let timerInterval;
-let remainingTime;
-let totalTime;
+let timers = [];
 
-const startButton = document.getElementById('startButton');
-const stopButton = document.getElementById('stopButton');
-const resetButton = document.getElementById('resetButton');
-const timeDisplay = document.getElementById('timeDisplay');
-const minutesInput = document.getElementById('minutes');
-const secondsInput = document.getElementById('seconds');
-const progressBar = document.querySelector('.progress');
+const addTimerButton = document.getElementById('addTimerButton');
+const timersList = document.getElementById('timersList');
 
-startButton.addEventListener('click', startTimer);
-stopButton.addEventListener('click', stopTimer);
-resetButton.addEventListener('click', resetTimer);
+addTimerButton.addEventListener('click', addTimer);
 
-function startTimer() {
-    const minutes = parseInt(minutesInput.value) || 0;
-    const seconds = parseInt(secondsInput.value) || 0;
+function addTimer() {
+    const timerName = document.getElementById('timerName').value.trim();
+    const minutes = parseInt(document.getElementById('minutes').value) || 0;
+    const seconds = parseInt(document.getElementById('seconds').value) || 0;
 
-    if (isNaN(minutes) || isNaN(seconds) || minutes < 0 || seconds < 0 || seconds >= 60) {
-        alert('Введите корректные значения для минут и секунд.');
+    if (isNaN(minutes) || isNaN(seconds) || minutes < 0 || seconds < 0 || seconds >= 60 || !timerName) {
+        alert('Введите корректные значения для минут, секунд и имени таймера.');
         return;
     }
-    
-    remainingTime = totalTime = minutes * 60 + seconds;
 
-    if (remainingTime > 0) {
-        timerInterval = setInterval(updateTimer, 1000);
-        updateProgressBar();
+    const timerId = `timer-${timers.length}`;
+    const timer = {
+        id: timerId,
+        name: timerName,
+        totalTime: minutes * 60 + seconds,
+        remainingTime: minutes * 60 + seconds,
+        interval: null
+    };
+
+    timers.push(timer);
+    renderTimers();
+}
+
+function renderTimers() {
+    timersList.innerHTML = '';
+    timers.forEach(timer => {
+        const timerElement = document.createElement('div');
+        timerElement.id = timer.id;
+        timerElement.classList.add('timer-item');
+        timerElement.innerHTML = `
+            <span>${timer.name}</span>
+            <span id="timeDisplay-${timer.id}">${formatTime(timer.remainingTime)}</span>
+            <button onclick="startTimer('${timer.id}')">Запуск</button>
+            <button onclick="stopTimer('${timer.id}')">Стоп</button>
+            <button onclick="resetTimer('${timer.id}')">Сброс</button>
+            <button onclick="deleteTimer('${timer.id}')">Удалить</button>
+            <div class="progress-bar">
+                <div class="progress" id="progress-${timer.id}"></div>
+            </div>
+        `;
+        timersList.appendChild(timerElement);
+    });
+}
+
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
+
+function startTimer(id) {
+    const timer = timers.find(t => t.id === id);
+    if (!timer) return;
+
+    if (timer.interval) clearInterval(timer.interval);
+
+    timer.interval = setInterval(() => {
+        if (timer.remainingTime > 0) {
+            timer.remainingTime--;
+            document.getElementById(`timeDisplay-${timer.id}`).textContent = formatTime(timer.remainingTime);
+            updateProgressBar(timer);
+        } else {
+            clearInterval(timer.interval);
+            alert('Время вышло!');
+        }
+    }, 1000);
+}
+
+function stopTimer(id) {
+    const timer = timers.find(t => t.id === id);
+    if (timer && timer.interval) clearInterval(timer.interval);
+}
+
+function resetTimer(id) {
+    const timer = timers.find(t => t.id === id);
+    if (timer) {
+        clearInterval(timer.interval);
+        timer.remainingTime = timer.totalTime;
+        document.getElementById(`timeDisplay-${timer.id}`).textContent = formatTime(timer.remainingTime);
+        document.getElementById(`progress-${timer.id}`).style.width = '0%';
     }
 }
 
-function updateTimer() {
-    if (remainingTime > 0) {
-        remainingTime--;
-        const minutes = Math.floor(remainingTime / 60);
-        const seconds = remainingTime % 60;
-        timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    } else {
-        clearInterval(timerInterval);
-        alert('Время вышло!');
-    }
+function deleteTimer(id) {
+    timers = timers.filter(t => t.id !== id);
+    renderTimers();
 }
 
-function stopTimer() {
-    clearInterval(timerInterval);
-}
-
-function resetTimer() {
-    clearInterval(timerInterval);
-    minutesInput.value = '';
-    secondsInput.value = '';
-    timeDisplay.textContent = '00:00';
-    progressBar.style.width = '0%';
-
-    // Сбрасываем оставшееся время и вызываем обновление шкалы прогресса
-    remainingTime = 0;
-    updateProgressBar();
-}
-
-function updateProgressBar() {
-    if (remainingTime > 0) {
-        const progress = ((totalTime - remainingTime) / totalTime) * 100;
-        progressBar.style.width = `${progress}%`;
-        requestAnimationFrame(updateProgressBar);
-    } else {
-        progressBar.style.width = '0%'; // Убедимся, что шкала прогресса обнуляется при завершении
-    }
+function updateProgressBar(timer) {
+    const progress = ((timer.totalTime - timer.remainingTime) / timer.totalTime) * 100;
+    document.getElementById(`progress-${timer.id}`).style.width = `${progress}%`;
 }

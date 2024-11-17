@@ -343,7 +343,7 @@ h1 {
 }
 
 input {
-    width: 100px; /* Увеличен размер для более комфортного ввода */
+    width: 150px; /* Увеличен размер для более комфортного ввода */
     margin: 5px;
     padding: 10px;
     font-size: 18px;
@@ -377,4 +377,16 @@ button {
     background-color: #4caf50;
     width: 0;
     transition: width 1s linear;
+}
+
+.timers-list .timer-item {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.timer-item button {
+    margin-left: 10px;
 }
