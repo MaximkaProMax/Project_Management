@@ -22,9 +22,80 @@
             </nav>
         </aside>
         <main class="main-content">
+            <section class="card">
+                <div class="header">
+                    <div class="logo">T</div>
+                    <div class="title editable" id="bank-name">Т-Банк</div>
+                    <div class="favorite" id="favorite-star">⭐</div>
+                </div>
+                <div class="region editable" id="region">Россия</div>
+                <div class="progress-section">
+                    <div class="progress-bar">
+                        <div class="progress" id="progress-bar"></div>
+                    </div>
+                    <div class="tasks" id="tasks">Задачи: <span id="taskCount">0</span></div>
+                    <ul class="task-list" id="taskList">
+                        <li class="add-task">
+                            <input type="text" id="newTask" placeholder="Новая задача">
+                            <button id="addTaskButton">Добавить</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="important editable" id="important-label">Очень важно</div>
+                <div class="tags">
+                    <div class="tag editable" id="tag-wink">WINK</div>
+                    <div class="tag editable" id="tag-film">ФИЛЬМ</div>
+                </div>
+                <div class="deadline editable" id="deadline">Дедлайн: 20 ноября</div>
+            </section>
 
+            <section class="calendar">
+                <h1>Календарь</h1>
+                <div class="controls">
+                    <button onclick="prevMonth()">Предыдущий месяц</button>
+                    <select id="month" onchange="changeMonth()"></select>
+                    <select id="year" onchange="changeYear()"></select>
+                    <button onclick="nextMonth()">Следующий месяц</button>
+                </div>
+                <table id="calendar">
+                    <thead>
+                        <tr>
+                            <th>Пн</th>
+                            <th>Вт</th>
+                            <th>Ср</th>
+                            <th>Чт</th>
+                            <th>Пт</th>
+                            <th>Сб</th>
+                            <th>Вс</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+
+            <section class="tasks">
+                <h2>Мои задачи</h2>
+                <input type="text" id="taskInput" placeholder="Введите задачу">
+                <button id="addButton">Добавить задачу</button>
+                <button id="removeAllButton">Удалить все задачи</button>
+                <ul id="taskList"></ul>
+            </section>
+
+            <section class="timer">
+                <div class="timer-container">
+                    <input type="text" id="timerName" placeholder="Имя таймера">
+                    <input type="number" id="minutes" placeholder="Минуты">
+                    <input type="number" id="seconds" placeholder="Секунды">
+                    <button id="addTimerButton">Добавить таймер</button>
+                </div>
+                <div id="timersList" class="timers-list"></div>
+            </section>
         </main>
     </div>
     <script src="/Script/ToDo.js"></script>
+    <script src="/Script/Calendar.js"></script>
+    <script src="/Script/Project.js"></script>
+    <script src="/Script/ToDo.js"></script>
+    <script src="/Script/Sprint.js"></script>
 </body>
 </html>
