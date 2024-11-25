@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Screen</title>
+    <title>Настройки профиля</title>
     <link rel="stylesheet" href="/Style/Style.css">
+    <link rel="stylesheet" href="/Style/ProfileSettings.css">
 </head>
 <body>
     <div class="container">
@@ -25,32 +26,33 @@
         <main class="main-content">
             <section class="profile-settings">
                 <h1>Настройки профиля</h1>
-                <form action="/update-profile" method="post">
+                <form id="profileForm">
                     <label for="username">Имя пользователя:</label>
-                    <input type="text" id="username" name="username" value="Иван Иванов">
+                    <input type="text" id="username" name="username">
                     
                     <label for="email">Почта:</label>
-                    <input type="email" id="email" name="email" value="ivan@example.com">
+                    <input type="email" id="email" name="email">
                     
                     <label for="phone">Телефон:</label>
-                    <input type="tel" id="phone" name="phone" value="123-456-7890">
+                    <input type="tel" id="phone" name="phone">
                     
                     <label for="address">Адрес:</label>
-                    <input type="text" id="address" name="address" value="Россия, Москва, ул. Пушкина, д. 10">
+                    <input type="text" id="address" name="address">
                     
                     <label for="education">Образование:</label>
-                    <input type="text" id="education" name="education" value="МГУ, Факультет компьютерных наук">
+                    <input type="text" id="education" name="education">
                     
                     <label for="average-price">Средняя цена за проект:</label>
-                    <input type="number" id="average-price" name="average-price" value="500">
+                    <input type="number" id="average-price" name="average-price">
                     
                     <label for="skills">Мой стек:</label>
-                    <input type="text" id="skills" name="skills" value="Adobe Premier, Adobe Photoshop">
+                    <input type="text" id="skills" name="skills">
                     
-                    <button type="submit">Сохранить изменения</button>
+                    <button type="button" onclick="saveProfile()">Сохранить изменения</button>
                 </form>
             </section>
         </main>
     </div>
+    <script src="/Script/Settings.js"></script>
 </body>
 </html>
