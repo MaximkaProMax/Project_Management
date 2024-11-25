@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Screen</title>
+    <link rel="stylesheet" href="/Style/Style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">МонтажКлик</div>
+            <nav>
+                <ul>
+                    <li><a href="/Main.html" class="menu-item">DASHBOARD</a></li>
+                    <li><a href="/Pages/Project.html" class="menu-item">Проекты</a></li>
+                    <li><a href="/Pages/ToDo.html" class="menu-item">Задачи</a></li>
+                    <li><a href="/Pages/Calendar.html" class="menu-item">Календарь</a></li>
+                    <li><a href="/Pages/Sprint.html" class="menu-item">Спринты</a></li>
+                    <li><a href="/Pages/Settings.html" class="menu-item">Настройки</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section class="profile-settings">
+                <h1>Настройки профиля</h1>
+                <form action="/update-profile" method="post">
+                    <label for="username">Имя пользователя:</label>
+                    <input type="text" id="username" name="username" value="Иван Иванов">
+                    
+                    <label for="email">Почта:</label>
+                    <input type="email" id="email" name="email" value="ivan@example.com">
+                    
+                    <label for="phone">Телефон:</label>
+                    <input type="tel" id="phone" name="phone" value="123-456-7890">
+                    
+                    <label for="address">Адрес:</label>
+                    <input type="text" id="address" name="address" value="Россия, Москва, ул. Пушкина, д. 10">
+                    
+                    <label for="education">Образование:</label>
+                    <input type="text" id="education" name="education" value="МГУ, Факультет компьютерных наук">
+                    
+                    <label for="average-price">Средняя цена за проект:</label>
+                    <input type="number" id="average-price" name="average-price" value="500">
+                    
+                    <label for="skills">Мой стек:</label>
+                    <input type="text" id="skills" name="skills" value="Adobe Premier, Adobe Photoshop">
+                    
+                    <button type="submit">Сохранить изменения</button>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
